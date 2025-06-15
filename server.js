@@ -4,6 +4,12 @@ const PORT = process.env.PORT || 3000;
 
 app.use(express.json());
 
+// Optional: root route so Railway shows something on browser
+app.get('/', (req, res) => {
+  res.send('✅ Voice agent server is running.');
+});
+
+// POST /respond for Retell
 app.post('/respond', async (req, res) => {
   const message = req.body.transcript?.toLowerCase() || '';
   let response = "I'm not sure how to help with that. Let me transfer you to the office.";
@@ -16,7 +22,8 @@ app.post('/respond', async (req, res) => {
     response = "I'm sorry to hear you're not feeling well. I've marked it down. Feel better soon!";
   }
 
-  res.json({ response });
+  res.json({ response }); // ✅ Retell requires { response: "..." }
 });
 
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+// Start the server
+app.listen(PORT, () => console.log(`✅ Server running on port ${PORT}`));
