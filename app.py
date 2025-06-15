@@ -11,7 +11,6 @@ def handle_llm_request(subpath=None):
         print(f"Request path: {request.path}")
         print(f"Request headers: {dict(request.headers)}")
         
-        # Simple response regardless of request type
         response = {
             "response": "Hi! Thanks for calling Express Pros Logan. I'm here to help - what can I do for you today?",
             "response_id": 1
@@ -25,4 +24,8 @@ def handle_llm_request(subpath=None):
         return jsonify({"error": str(e)}), 500
 
 @app.route('/', methods=['GET'])
-def health
+def health():
+    return "Express Pros LLM is running!"
+
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=int(os.environ.get('PORT', 5000)))
