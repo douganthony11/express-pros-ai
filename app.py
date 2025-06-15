@@ -4,8 +4,9 @@ import os
 app = Flask(__name__)
 
 @app.route('/llm', methods=['POST'])
-def handle_llm_request():
-    data = request.json
+@app.route('/llm/<path:subpath>', methods=['POST', 'GET'])
+def handle_llm_request(subpath=None):
+    data = request.get_json() if request.is_json else {}
     
     # For now, just return a simple response to test
     return jsonify({
